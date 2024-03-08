@@ -1,10 +1,15 @@
 import '../styles/globals.css';
 import Layout from '../components/Layout';
+import { MantineProvider } from '@mantine/core';
 
 function App({ Component, pageProps }) {
-    return (<Layout>
-        <Component {...pageProps} />
-    </Layout>)
+    return (
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </MantineProvider>
+    )
 }
 
 export default App;
