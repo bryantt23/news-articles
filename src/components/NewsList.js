@@ -1,3 +1,4 @@
+import NewsItem from "./NewsItem";
 
 const NewsList = ({ travelStoriesData }) => {
     console.log("🚀 ~ NewsList ~ travelStoriesData:", travelStoriesData)
@@ -11,10 +12,7 @@ const NewsList = ({ travelStoriesData }) => {
             <h1>Travel News</h1>
             <ul>
                 {travelStoriesData.results.map((story) => (
-                    <li key={story.url}>
-                        <h2>{story.title}</h2>
-                        <p>{story.abstract}</p>
-                    </li>
+                    <NewsItem key={story.url} story={story} />
                 ))}
             </ul>
         </main>
