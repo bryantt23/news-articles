@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { NewsItem } from "./NewsItem";
-import { Drawer, Button, Group } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography, Drawer, Box, IconButton, Stack } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { NewsItem } from './NewsItem';
 
 const NewsList = ({ travelStoriesData }) => {
-    const [opened, { open, close }] = useDisclosure(true);
-    const [expandedUrl, setExpandedUrl] = useState(null)
-    console.log("🚀 ~ NewsList ~ travelStoriesData:", travelStoriesData)
+    const [expandedUrl, setExpandedUrl] = useState(null);
+
+    console.log("🚀 ~ NewsList ~ travelStoriesData:", travelStoriesData);
     if (!travelStoriesData?.results) {
         console.error('No results found in travelStoriesData:', travelStoriesData);
-        return <p>Loading...</p>;
+        return <Typography>Loading...</Typography>;
     }
 
     const expandedStory = travelStoriesData.results.find(story => story.url === expandedUrl);
@@ -20,34 +20,37 @@ const NewsList = ({ travelStoriesData }) => {
 
     return (
         <>
-            <Button onClick={() => console.log('Test Button Clicked!')} color="violet" variant="outline">
-                Test Mantine Button
+            <Button onClick={() => console.log('Test Button Clicked!')} variant="outlined" color="primary">
+                Test Material UI Button
             </Button>
-            <h1>NY Times Travel News</h1>
-            <Group>
+            <Typography variant="h4" component="h1" gutterBottom>
+                NY Times Travel News
+            </Typography>
+            <Stack direction="row" spacing={2} marginBottom={2}>
 
                 <Drawer
-                    opened={expandedUrl !== null} // Control based on URL
+                    anchor="top"
+                    open={expandedUrl !== null}
                     onClose={() => setExpandedUrl(null)}
-                    title="Article Details"
-                    // padding="xl"
-                    // size="xl"
-                    position="top"
                 >
-                    <h1>hiii</h1>
-                    Display article details when URL is expanded
-                    {expandedStory && (
-                        <div>
-                            <h2>{expandedStory.title}</h2>
-                            <p>{expandedStory.abstract}</p>
-                            {/* ... */}
-                            <Button onClick={() => setExpandedUrl(null)}>Close</Button>
-                        </div>
-                    )}
+                    <Box p={2} width="auto">
+                        <IconButton onClick={() => setExpandedUrl(null)}>
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography variant="h6" component="h2">Article Details</Typography>
+                        {expandedStory && (
+                            <Box>
+                                <Typography variant="h5" component="h3">{expandedStory.title}</Typography>
+                                <Typography paragraph>{expandedStory.abstract}</Typography>
+                                {/* ... */}
+                                <Button onClick={() => setExpandedUrl(null)}>Close</Button>
+                            </Box>
+                        )}
+                    </Box>
                 </Drawer>
-            </Group>
+            </Stack>
             {expandedUrl}
-            <Group position="bottom">
+            <Stack direction="row" spacing={2} justifyContent="flex-start">
 
                 {travelStoriesData.results.map((story) => (
                     <NewsItem
@@ -57,10 +60,8 @@ const NewsList = ({ travelStoriesData }) => {
                         toggleExpanded={() => toggleExpanded(story.url)}
                     />
                 ))}
-            </Group>
-
+            </Stack>
         </>
     );
 };
-
 export default NewsList;

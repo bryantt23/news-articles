@@ -1,26 +1,34 @@
-import { Card, Image, Text, Button, Group } from '@mantine/core';
+import React, { useState } from 'react';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography, Drawer, Box, IconButton, Stack } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const NewsItem = ({ story, isExpanded, toggleExpanded }) => {
     return (
-        <Card shadow="sm" padding="lg" style={{ marginBottom: 20 }}>
+        <Card sx={{ marginBottom: 2 }}>
             {story.multimedia?.length > 0 && (
-                <Card.Section>
-                    <Image src={story.multimedia[0].url} height={160} alt={story.title} />
-                </Card.Section>
+                <CardMedia
+                    component="img"
+                    height="160"
+                    image={story.multimedia[0].url}
+                    alt={story.title}
+                />
             )}
-            <Text weight={500} size="lg" style={{ marginTop: 20 }}>{story.title}</Text>
-            <Text size="sm">
-                {isExpanded ? story.abstract : `${story.abstract.substring(0, 100)}...`}
-            </Text>
-            <Group position="apart" style={{ marginTop: 20 }}>
-                <Button variant="light" color="blue" onClick={toggleExpanded}>
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    {story.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {isExpanded ? story.abstract : `${story.abstract.substring(0, 100)}...`}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="small" onClick={toggleExpanded}>
                     {isExpanded ? 'Show Less' : 'Read More'}
                 </Button>
-                <Button component="a" href={story.url} target="_blank" rel="noopener noreferrer">
+                <Button size="small" component="a" href={story.url} target="_blank" rel="noopener noreferrer">
                     Go to article
                 </Button>
-            </Group>
+            </CardActions>
         </Card>
     );
 };
-
