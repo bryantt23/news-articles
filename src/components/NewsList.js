@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography, Drawer, Box, IconButton, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Drawer, Grid, IconButton, Typography } from '@mui/material';
+import { useState } from 'react';
 import { NewsItem } from './NewsItem';
 
 const NewsList = ({ travelStoriesData }) => {
@@ -19,49 +19,42 @@ const NewsList = ({ travelStoriesData }) => {
     }
 
     return (
-        <>
-            <Button onClick={() => console.log('Test Button Clicked!')} variant="outlined" color="primary">
-                Test Material UI Button
-            </Button>
+        <div style={{ padding: 20 }}>
             <Typography variant="h4" component="h1" gutterBottom>
                 NY Times Travel News
             </Typography>
-            <Stack direction="row" spacing={2} marginBottom={2}>
-
-                <Drawer
-                    anchor="top"
-                    open={expandedUrl !== null}
-                    onClose={() => setExpandedUrl(null)}
-                >
-                    <Box p={2} width="auto">
-                        <IconButton onClick={() => setExpandedUrl(null)}>
-                            <CloseIcon />
-                        </IconButton>
-                        <Typography variant="h6" component="h2">Article Details</Typography>
-                        {expandedStory && (
-                            <Box>
-                                <Typography variant="h5" component="h3">{expandedStory.title}</Typography>
-                                <Typography paragraph>{expandedStory.abstract}</Typography>
-                                {/* ... */}
-                                <Button onClick={() => setExpandedUrl(null)}>Close</Button>
-                            </Box>
-                        )}
-                    </Box>
-                </Drawer>
-            </Stack>
-            {expandedUrl}
-            <Stack direction="row" spacing={2} justifyContent="flex-start">
-
-                {travelStoriesData.results.map((story) => (
-                    <NewsItem
-                        key={story.url}
-                        story={story}
-                        isExpanded={story.url === expandedUrl}
-                        toggleExpanded={() => toggleExpanded(story.url)}
-                    />
+            <Drawer
+                anchor="top"
+                open={expandedUrl !== null}
+                onClose={() => setExpandedUrl(null)}
+            >
+                <Box p={2} width="auto">
+                    <IconButton onClick={() => setExpandedUrl(null)}>
+                        <CloseIcon />
+                    </IconButton>
+                    <Typography variant="h6" component="h2">Article Details</Typography>
+                    {expandedStory && (
+                        <Box>
+                            <Typography variant="h5" component="h3">{expandedStory.title}</Typography>
+                            <Typography paragraph>{expandedStory.abstract}</Typography>
+                            <Button onClick={() => setExpandedUrl(null)}>Close</Button>
+                        </Box>
+                    )}
+                </Box>
+            </Drawer>
+            <Grid container spacing={2}>
+                {travelStoriesData.results.map((story, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                        <NewsItem
+                            story={story}
+                            isExpanded={story.url === expandedUrl}
+                            toggleExpanded={() => toggleExpanded(story.url)}
+                        />
+                    </Grid>
                 ))}
-            </Stack>
-        </>
+            </Grid>
+        </div>
     );
 };
+
 export default NewsList;

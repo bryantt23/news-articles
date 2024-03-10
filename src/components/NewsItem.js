@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, CardActions, CardContent, CardMedia, Typography, Drawer, Box, IconButton, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export const NewsItem = ({ story, isExpanded, toggleExpanded }) => {
     return (
@@ -25,7 +26,8 @@ export const NewsItem = ({ story, isExpanded, toggleExpanded }) => {
                 <Button size="small" onClick={toggleExpanded}>
                     {isExpanded ? 'Show Less' : 'Read More'}
                 </Button>
-                <Button size="small" component="a" href={story.url} target="_blank" rel="noopener noreferrer">
+                <Button size="small" component="a" href={story.url} target="_blank" rel="noopener noreferrer"
+                    endIcon={<OpenInNewIcon />}>
                     Go to article
                 </Button>
             </CardActions>
