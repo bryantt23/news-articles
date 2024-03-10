@@ -1,7 +1,8 @@
+import React from 'react'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-export const NewsItem = ({ story, toggleExpanded }) => {
+const NewsItem = ({ story, toggleExpanded }) => {
     return (
         <Card sx={{ marginBottom: 2 }}>
             {story.multimedia?.length > 0 && (
@@ -31,3 +32,5 @@ export const NewsItem = ({ story, toggleExpanded }) => {
         </Card>
     );
 };
+
+export default NewsItem
