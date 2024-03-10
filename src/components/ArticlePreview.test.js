@@ -2,6 +2,12 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ArticlePreview from './ArticlePreview';
 
+jest.mock('next/image', () => {
+    const ImageMock = ({ src, alt }) => <img src={src} alt={alt} />;
+    ImageMock.displayName = 'Image';
+    return ImageMock;
+});
+
 const mockArticle = {
     title: "Test Article",
     byline: "By Test Author",
@@ -19,8 +25,9 @@ describe('ArticlePreview', () => {
         expect(screen.getByText("Test Article")).toBeInTheDocument();
         expect(screen.getByText("By Test Author - 3/9/2024")).toBeInTheDocument();
         expect(screen.getByText("This is a test abstract.")).toBeInTheDocument();
-        expect(screen.getByRole('img')).toHaveAttribute('src', mockArticle.multimedia[0].url);
-        expect(screen.getByRole('link')).toHaveAttribute('href', mockArticle.url);
+        const image = screen.getByRole('img');
+        expect(image).toBeInTheDocument();
+        expect(image).toHaveAttribute('src', mockArticle.multimedia[0].url); expect(screen.getByRole('link')).toHaveAttribute('href', mockArticle.url);
     });
 
     it('closes when the close button is clicked', () => {

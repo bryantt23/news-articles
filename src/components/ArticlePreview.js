@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Image from 'next/image';
 
 const ArticlePreview = ({ article, onClose }) => {
     return (
@@ -19,7 +20,7 @@ const ArticlePreview = ({ article, onClose }) => {
                     <Typography paragraph>{article.abstract}</Typography>
                     {article.multimedia && article.multimedia[0] && (
                         <Box display="flex" justifyContent="center">
-                            <img src={article.multimedia[0].url} alt={`Image ${article.multimedia[0].url}`} style={{ maxWidth: '50%', height: 'auto' }} />
+                            <Image src={article.multimedia[0].url} alt={`Image ${article.multimedia[0].url}`} width={500} height={300} layout="intrinsic" />
                         </Box>
                     )}
                     <Button size="small" component="a" href={article.url} target="_blank" rel="noopener noreferrer"

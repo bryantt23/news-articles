@@ -4,9 +4,17 @@ import NewsList from './NewsList';
 import ArticlePreview from './ArticlePreview';
 import NewsItem from './NewsItem';
 
-// Mock ArticlePreview and NewsItem since we're focusing on NewsList behavior
-jest.mock('./ArticlePreview', () => (props) => (<div>MockArticlePreview {props.article && props.article.title}</div>));
-jest.mock('./NewsItem', () => (props) => (<div>MockNewsItem {props.story && props.story.title}</div>));
+jest.mock('./ArticlePreview', () => {
+    const MockArticlePreview = (props) => (<div>MockArticlePreview {props.article && props.article.title}</div>);
+    MockArticlePreview.displayName = 'MockArticlePreview';
+    return MockArticlePreview;
+});
+
+jest.mock('./NewsItem', () => {
+    const MockNewsItem = (props) => (<div>MockNewsItem {props.story && props.story.title}</div>);
+    MockNewsItem.displayName = 'MockNewsItem';
+    return MockNewsItem;
+});
 
 const mockTravelStoriesData = {
     results: [
