@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography, Drawer, Box, IconButton, Stack } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-export const NewsItem = ({ story, isExpanded, toggleExpanded }) => {
+export const NewsItem = ({ story, toggleExpanded }) => {
     return (
         <Card sx={{ marginBottom: 2 }}>
             {story.multimedia?.length > 0 && (
@@ -19,12 +17,11 @@ export const NewsItem = ({ story, isExpanded, toggleExpanded }) => {
                     {story.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {isExpanded ? story.abstract : `${story.abstract.substring(0, 100)}...`}
+                    {`${story.abstract.substring(0, 50)}...`}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={toggleExpanded}>
-                    {isExpanded ? 'Show Less' : 'Read More'}
+                <Button size="small" onClick={toggleExpanded}>Preview
                 </Button>
                 <Button size="small" component="a" href={story.url} target="_blank" rel="noopener noreferrer"
                     endIcon={<OpenInNewIcon />}>
